@@ -41,7 +41,7 @@ Una variable "password", y que sea igual a una contraseña.
   // console.log("location ->", location);
   const [characters, setCharacters] = useState([]);
   function onSearch(id) {
-    fetch(`http://localhost:3001/rickandmorty${id}`)
+    fetch(`http://localhost:3001/onsearch/${id}`) // `http://localhost:3001/rickandmorty/${id}`
       .then((response) => response.json())
       .then((data) => {
         if (data.name) {
