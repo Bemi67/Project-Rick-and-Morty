@@ -2,7 +2,12 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card";
 import styles from "./Favorites.module.css";
-import { filterCards, orderCards, reset } from "../Redux/actions";
+import {
+  filterCards,
+  orderCards,
+  reset,
+  deleteFavorites,
+} from "../Redux/actions";
 
 export default function Favorites(props) {
   const dispatch = useDispatch();
@@ -19,7 +24,10 @@ export default function Favorites(props) {
       dispatch(orderCards(value));
     }
   }
-
+  function onCloseGral(id) {
+    props.onClose(id);
+    dispatch(deleteFavorites(id));
+  }
   return (
     <>
       <div className={styles.cards}>
@@ -53,7 +61,7 @@ export default function Favorites(props) {
               species={c.species}
               gender={c.gender}
               image={c.image}
-              onClose={() => props.onClose(c.id)}
+              onClose={() => onCloseGral(c.id)}
             />
           );
         })}
@@ -61,3 +69,9 @@ export default function Favorites(props) {
     </>
   );
 }
+
+// import {connect } ...
+
+
+
+// export default connect(mapState,{filterCards,orderCards,reset,deleteFavorites,})(Favorites)
