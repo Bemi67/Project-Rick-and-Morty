@@ -8,33 +8,33 @@ import {
 import axios from "axios";
 
 export function addFavorites(ch) {
-  return function (dispatch) {
-    axios
-      .post(`http://localhost:3001/rickandmorty/fav`, ch)
-      .then((v) => v.data)
-      .then((d) => {
-        dispatch({
+  return async function (dispatch) {
+    try {
+      const character = await axios.post(`http://localhost:3001/rickandmorty/fav`, ch)
+             dispatch({
           type: ADD_FAVORITES,
-          payload: d,
+          payload: character.data,
         });
-      });
-  };
+    } catch (error) {
+      console.log(error)
+    }
+ 
+        };
 }
 
 export function deleteFavorites(id) {
-  return function (dispatch) {
-    axios
-      .delete(`http://localhost:3001/rickandmorty/fav/${id}`)
-      .then((v) => v.data)
-      .then((d) => {
-        dispatch({
-          type: DELETE_FAVORITES,
-          payload: id,
-        });
-      });
-  };
- 
-}
+  return async function (dispatch) {
+    try {
+      const character = await axios.delete(`http://localhost:3001/rickandmorty/fav/${id}`)
+      dispatch({
+    type: DELETE_FAVORITES,
+    payload: id,
+  });
+     } catch (error) {
+      console.log(error)      
+    }
+         };
+ }
 
 export function filterCards(status) {
   return {

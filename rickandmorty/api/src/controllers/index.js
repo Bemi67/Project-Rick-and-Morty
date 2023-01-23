@@ -21,50 +21,45 @@ const deleteFavId = function (req, res) {
   }
 };
 
-const getCharacterId = function (req, res) {
+const getCharacterId = async function (req, res) {
   const { id } = req.params;
-  axios(`https://rickandmortyapi.com/api/character/${id}`)
-    .then((data) => data.data)
-    .then((data) => {
-      const character = {
-        image: data.image,
-        name: data.name,
-        gender: data.gender,
-        species: data.species,
-        id: data.id,
+  try {
+    const result = await axios(`https://rickandmortyapi.com/api/character/${id}`)
+  const characterApi = result.data
+       const character = {
+        image: characterApi.image,
+        name: characterApi.name,
+        gender: characterApi.gender,
+        species: characterApi.species,
+        id: characterApi.id,
       };
-      res.writeHead(200, { "Content-type": "application/json" });
-      res.end(JSON.stringify(character));
-    })
-    .catch((error) => {
-      res.writeHead(500, { "Content-type": "text/plain" });
-      res.end("not found character");
-    });
-};
+            res.status(200).end(JSON.stringify(character));
+       
+  } catch (error) {
+    res.status(500).end("not found character", error);
+  }
+  };
 
-const getDetailId = function (req, res) {
+const getDetailId = async function (req, res) {
   const { detailId } = req.params;
-  axios(`https://rickandmortyapi.com/api/character/${detailId}`)
-    .then((data) => data.data)
-    .then((data) => {
-      // console.log(data)
-      const character = {
-        image: data.image,
-        name: data.name,
-        gender: data.gender,
-        species: data.species,
-        id: data.id,
-        status: data.status,
-        origin: data.origin,
+  try {
+    const result = await axios(`https://rickandmortyapi.com/api/character/${detailId}`)
+  const characterDetail = result.data
+        const character = {
+        image: characterDetail.image,
+        name: characterDetail.name,
+        gender: characterDetail.gender,
+        species: characterDetail.species,
+        id: characterDetail.id,
+        status: characterDetail.status,
+        origin: characterDetail.origin,
       };
-      res.writeHead(200, { "Content-type": "application/json" });
-      res.end(JSON.stringify(character));
-    })
-    .catch((error) => {
-      res.writeHead(500, { "Content-type": "text/plain" });
-      res.end("not found character");
-    });
-};
+      res.status(200).end(JSON.stringify(character));
+       
+  } catch (error) {
+        res.status(500).end("not found character",error);
+  }
+   };
 
 
 module.exports = {
