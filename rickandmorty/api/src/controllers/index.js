@@ -33,7 +33,7 @@ const getCharacterId = async function (req, res) {
         species: characterApi.species,
         id: characterApi.id,
       };
-            res.status(200).end(JSON.stringify(character));
+      res.status(200).json(character);
        
   } catch (error) {
     res.status(500).end("not found character", error);
@@ -54,7 +54,7 @@ const getDetailId = async function (req, res) {
         status: characterDetail.status,
         origin: characterDetail.origin,
       };
-      res.status(200).end(JSON.stringify(character));
+      res.status(200).json(character);
        
   } catch (error) {
         res.status(500).end("not found character",error);
